@@ -1,2 +1,111 @@
-# kevins-product-mind
-面向中文产品工作的 Agent Skill：需求澄清、方案取舍、MVP、PRD 写作与评审，附优先级和实验计算脚本。
+# Kevin's Product Mind
+
+**中文** · [English](README.en.md) · [한국어](README.ko.md)
+
+**吸纳中国互联网大厂产品方法论的产品经理 Agent Skill：把模糊需求推进为有依据的产品判断，并写成可供评审与开发的 PRD。适用于不同市场与语言的产品工作。**
+
+它把需求澄清、方案取舍、范围管理和 PRD 写作放在同一个工作流里。信息不足时先给出推荐方向与关键缺口；需求已确认时直接成文；局部修改只处理授权范围，并同步受影响的正文、流程和验收。
+
+## 能做什么
+
+| 场景 | 主要产出 |
+| --- | --- |
+| 想法、反馈或需求尚不清楚 | 需求简报、推荐方案、主要取舍与待确认项 |
+| 核心方案与本期范围已明确 | PRD、功能规则、主流程、异常结果与验收要求 |
+| 修改或评审已有方案 | 范围内的修订、业务逻辑问题与具体建议 |
+| 规划与验证 | MVP、优先级、Roadmap、指标口径和实验方案 |
+
+写作强调条件与处理、规则的唯一归属、输入到页面字段的完整链路，以及产品规则与技术实现的边界。事实、假设、未知与实际为零分别处理；不把示例数字或未验证效果写成现状承诺。
+
+纯转写、翻译、格式转换和已经确定方案的代码实现不属于本 Skill 的主要用途。用户已有模板、作者样本与当前任务范围仍是重要输入。
+
+当前 Skill 和参考资料以中文编写，可在需求中指定输出语言。英文与韩文 README 是仓库说明和调用模板的翻译，跨语言使用效果需在实际客户端中验证。
+
+## 安装与使用
+
+本从仓库下载 [kevins-product-mind.zip](https://github.com/Kevin-SHANG/kevins-product-mind/blob/main/kevins-product-mind.zip)，解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
+
+例如，使用 `~/.codex/skills` 作为技能目录时，最终入口应为 `~/.codex/skills/kevins-product-mind/SKILL.md`。使用其他技能目录时替换路径。目标目录已存在时先保留自己的修改，再更新；按客户端要求重新加载技能或开启新会话。
+
+下文提到的 Skill、参考资料、提示词和脚本都包含在安装包内。
+
+以下是压缩包中 `需求提示词.md` 的完整模板。复制并填写已知信息，不清楚的可留空；在支持 `$skill-name` 调用的客户端中使用：
+
+```text
+请使用 $kevins-product-mind 帮我完成以下产品需求。
+
+需求：［想解决什么问题，为谁解决］
+背景与材料：［当前情况、用户反馈、数据、文档或链接］
+已定事项与限制：［必须保留的规则、本期不做的内容］
+希望产出：［方案建议 / MVP / PRD / 方案评审 / 其他］
+
+先阅读材料，再给出你的判断。信息足够就直接完成；影响方向或正确性的关键缺口集中提问，其余低风险、可逆的细节由你判断。已有决定不重复确认，假设与事实分清，不扩展本次范围。
+```
+
+需要其他输出语言时，在模板后加上相应要求。如果客户端不支持自动加载 Skill，可显式提供 `SKILL.md` 与当前任务所需的参考文件；这种方式的加载与执行效果取决于客户端。
+
+## 文件说明
+
+```text
+kevins-product-mind/
+├── SKILL.md
+├── 需求提示词.md
+├── references/
+│   ├── decisions-and-planning.md
+│   ├── prd-structure.md
+│   ├── prd-style.md
+│   └── prd-cases.md
+├── scripts/
+│   ├── score_priorities.py
+│   └── experiment_math.py
+└── evals/
+    ├── evals.json
+    └── fixtures/E10-original-prd.md
+```
+
+参考资料按任务加载，无需每次读取全部文件。原始资料中的“SYX”是写作方法的来源标记，相关案例中的业务参数只适用于其原始情境，不是新项目的默认规则。
+
+## 辅助脚本
+
+脚本需要 Python 3.10 或更新版本，只使用 Python 标准库；只写 PRD 而不调用脚本时无需安装 Python。
+
+**优先级计算**支持 RICE、ICE 与加权得分。先查看参数说明：
+
+```bash
+python3 scripts/score_priorities.py --help
+python3 scripts/score_priorities.py priorities.csv --method rice
+```
+
+RICE 的 UTF-8 CSV 输入示例：
+
+```csv
+item,reach,impact,confidence,effort
+A,1000,2,0.8,4
+B,2000,1,0.5,5
+C,500,3,1,2
+```
+
+结果按 C、A、B 排序，得分分别为 750、400、200。`confidence` 使用 0—1 小数。脚本不补默认值；输出写到标准输出，也可通过 `--output` 保存。
+
+**实验样本量**计算两独立比例实验的正态近似样本量，统计参数必须显式提供：
+
+```bash
+python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
+  --alpha 0.05 --power 0.8 --allocation 0.5 --sides two --direction increase
+```
+
+`mde=0.02` 表示提升 2 个百分点。该例输出每组 3841、总计 7682。计算不包含聚类、序贯检验、多重比较或损耗修正；按流量估算的收集天数不能代替完整实验周期。
+
+## 评估与贡献
+
+`evals/evals.json` 提供 12 个评估场景，覆盖模糊需求、AI 字段、排序规则、局部润色、范围同步与完整 PRD 收敛等行为。它是评估场景与期望的定义文件，需要在实际 Agent 环境中执行并记录结果；文件存在不表示这些场景已经通过。
+
+改进规则时，欢迎提交 Issue 或 Pull Request，并附上最小输入、观察到的行为和期望结果。请使用可公开或匿名化的材料，避免加入真实客户数据、账号凭据或内部文档。修改脚本时请同时说明实际运行结果；修改写作规则时请检查原有业务含义是否保留。
+
+## 致谢
+
+**特别感谢 `wami-prd-style` 的作者 wami。** 其 PRD 行文与结构组织方法为本 Skill 的整理提供了重要参考。
+
+## 许可证
+
+本项目由 [Kevin-SHANG](https://github.com/Kevin-SHANG) 发布，采用 [MIT License](LICENSE)。
