@@ -69,26 +69,6 @@ kevins-product-mind/
 
 脚本需要 Python 3.10 或更新版本，只使用 Python 标准库；只写 PRD 而不调用脚本时无需安装 Python。
 
-**优先级计算**支持 RICE、ICE 与加权得分。先查看参数说明：
-
-```bash
-python3 scripts/score_priorities.py --help
-python3 scripts/score_priorities.py priorities.csv --method rice
-```
-
-RICE 的 UTF-8 CSV 输入示例：
-
-```csv
-item,reach,impact,confidence,effort
-A,1000,2,0.8,4
-B,2000,1,0.5,5
-C,500,3,1,2
-```
-
-结果按 C、A、B 排序，得分分别为 750、400、200。`confidence` 使用 0—1 小数。脚本不补默认值；输出写到标准输出，也可通过 `--output` 保存。
-
-**实验样本量**计算两独立比例实验的正态近似样本量，统计参数必须显式提供：
-
 ```bash
 python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
   --alpha 0.05 --power 0.8 --allocation 0.5 --sides two --direction increase
