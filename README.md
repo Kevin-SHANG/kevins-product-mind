@@ -21,9 +21,16 @@
 
 当前 Skill 和参考资料以中文编写，可在需求中指定输出语言。英文与韩文 README 是仓库说明和调用模板的翻译，跨语言使用效果需在实际客户端中验证。
 
+## V2.0 新增内容
+
+- **绘图规范**：覆盖流程图、思维导图、信息架构图、产品架构图、用户旅程图与状态图。
+- **更清晰的表达**：统一布局、连线与复杂图拆分，保留业务规则、分支和异常路径。
+- **图形验收**：检查图文一致性、路径完整性与实际呈现；无法预览时明确说明未验证项。
+- **轻量升级**：保留 V1 核心能力，新增规范仅在涉及图形时加载。
+
 ## 安装与使用
 
-本从仓库下载 [kevins-product-mind.zip](https://github.com/Kevin-SHANG/kevins-product-mind/blob/main/kevins-product-mind.zip)，解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
+下载 [V2.0.0 安装包](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v2.0.0/kevins-product-mind-v2.zip)（[版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v2.0.0)），解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
 
 例如，使用 `~/.codex/skills` 作为技能目录时，最终入口应为 `~/.codex/skills/kevins-product-mind/SKILL.md`。使用其他技能目录时替换路径。目标目录已存在时先保留自己的修改，再更新；按客户端要求重新加载技能或开启新会话。
 
@@ -54,7 +61,8 @@ kevins-product-mind/
 │   ├── decisions-and-planning.md
 │   ├── prd-structure.md
 │   ├── prd-style.md
-│   └── prd-cases.md
+│   ├── prd-cases.md
+│   └── diagram-layout.md
 ├── scripts/
 │   ├── score_priorities.py
 │   └── experiment_math.py
@@ -78,7 +86,7 @@ python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
 
 ## 评估与贡献
 
-`evals/evals.json` 提供 12 个评估场景，覆盖模糊需求、AI 字段、排序规则、局部润色、范围同步与完整 PRD 收敛等行为。它是评估场景与期望的定义文件，需要在实际 Agent 环境中执行并记录结果；文件存在不表示这些场景已经通过。
+`evals/evals.json` 提供 18 个评估场景：保留原有 12 个场景，新增 6 个绘图场景，覆盖图形语义保留、复杂图拆分、信息架构、状态回流、渲染限制和未知动作顺序。它是评估场景与期望的定义文件，需要在实际 Agent 环境中执行并记录结果；文件存在不表示这些场景已经通过。
 
 改进规则时，欢迎提交 Issue 或 Pull Request，并附上最小输入、观察到的行为和期望结果。请使用可公开或匿名化的材料，避免加入真实客户数据、账号凭据或内部文档。修改脚本时请同时说明实际运行结果；修改写作规则时请检查原有业务含义是否保留。
 
@@ -88,4 +96,4 @@ python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
 
 ## 许可证
 
-本项目由 [Kevin-SHANG](https://github.com/Kevin-SHANG) 发布，采用 [MIT License](LICENSE)。
+本项目由 [Kevin-SHANG](https://github.com/Kevin-SHANG) 发布，许可证声明为 MIT。仓库尚未提供独立的 `LICENSE` 文件。

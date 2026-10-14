@@ -15,9 +15,16 @@
 
 현재 Skill과 참고 자료는 중국어로 작성되어 있습니다. 원하는 출력 언어를 요청할 수 있습니다. 영어·한국어 README는 프로젝트 안내와 요청 템플릿을 번역한 문서이며, 언어별 실행 결과는 사용하는 클라이언트에서 검증해야 합니다.
 
+## V2.0 업데이트
+
+- **도표 작성 가이드:** 흐름도, 마인드맵, 정보 구조도, 제품 구조도, 사용자 여정 지도, 상태 전이도를 다룹니다.
+- **가독성 개선:** 배치, 연결선, 복잡한 도표의 분할 기준을 정리하고 업무 규칙, 분기, 예외 경로를 유지합니다.
+- **도표 검수:** 문서와의 일관성, 경로의 완전성, 실제 표시 결과를 확인합니다. 시각적으로 확인하지 못한 항목은 명시합니다.
+- **간결한 업그레이드:** V1 핵심 기능을 유지하고 도표 작업에만 새 가이드를 불러옵니다.
+
 ## 설치
 
-저장소에서 [kevins-product-mind.zip](https://github.com/Kevin-SHANG/kevins-product-mind/blob/main/kevins-product-mind.zip)을 내려받아 압축을 푸세요. `SKILL.md`가 있는 폴더 전체를 클라이언트에 설정된 스킬 디렉터리에 넣고 폴더 이름을 `kevins-product-mind`로 유지하세요.
+[V2.0.0 설치 패키지](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v2.0.0/kevins-product-mind-v2.zip)를 내려받아 압축을 푸세요. 자세한 변경 내용은 [릴리스 노트](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v2.0.0)를 확인하세요. `SKILL.md`가 있는 폴더 전체를 클라이언트에 설정된 스킬 디렉터리에 넣고 폴더 이름을 `kevins-product-mind`로 유지하세요.
 
 `~/.codex/skills`를 사용하는 환경이라면 진입점은 `~/.codex/skills/kevins-product-mind/SKILL.md`입니다. 다른 디렉터리를 사용하면 경로를 바꾸세요. 업데이트 전에 로컬 수정 사항을 보관하고, 클라이언트 안내에 따라 스킬을 다시 불러오거나 새 세션을 시작하세요.
 
@@ -45,12 +52,13 @@ $kevins-product-mind를 사용해 아래 제품 요청을 도와주세요.
 | 파일 | 용도 |
 | --- | --- |
 | `SKILL.md` | 진입점, 제약, 참고 자료 선택 |
-| `decisions-and-planning.md` | 제품 판단, 계획, 검증 |
-| `prd-structure.md` | PRD 구조, 흐름, 필드, 비즈니스 규칙 |
-| `prd-style.md` | 명명, 문체, 결과물 점검 |
-| `prd-cases.md` | 수정 전후 예시와 적용 범위 |
+| `references/decisions-and-planning.md` | 제품 판단, 계획, 검증 |
+| `references/prd-structure.md` | PRD 구조, 흐름, 필드, 비즈니스 규칙 |
+| `references/prd-style.md` | 명명, 문체, 결과물 점검 |
+| `references/prd-cases.md` | 수정 전후 예시와 적용 범위 |
+| `references/diagram-layout.md` | 도표 배치, 연결선, 분할, 검수 |
 | `scripts/` | 우선순위 점수와 실험 표본 크기 계산 |
-| `evals/evals.json` | 행동 평가 시나리오 12개와 기대 결과 |
+| `evals/evals.json` | 행동 평가 시나리오 18개와 기대 결과 |
 
 원본 자료의 “SYX”는 작성 방법의 출처 표기로 유지했습니다. 예시의 비즈니스 수치는 원래 상황에만 적용되며, 새 프로젝트의 기본 규칙이 아닙니다.
 
@@ -73,7 +81,7 @@ RICE, ICE, 가중 점수를 지원합니다. `confidence`는 0–1 사이의 소
 
 ## 평가와 기여
 
-`evals/evals.json`은 모호한 요구, AI 필드, 선택 규칙, 문장 수정, 범위 변경, 완전한 PRD로의 진행 등을 다루는 평가 시나리오 12개를 정의합니다. 실제 Agent 환경에서 실행하고 결과를 기록해야 합니다. 파일이 있다는 사실만으로 평가를 통과한 것은 아닙니다.
+`evals/evals.json`은 평가 시나리오 18개를 정의합니다. 기존 12개를 유지하고 의미 보존, 복잡한 도표 분할, 정보 구조, 상태 순환, 렌더링 제약, 동작 순서가 불명확한 상황을 다루는 도표 시나리오 6개를 추가했습니다. 실제 Agent 환경에서 실행하고 결과를 기록해야 합니다. 파일이 있다는 사실만으로 평가를 통과한 것은 아닙니다.
 
 Issue와 Pull Request를 환영합니다. 최소 입력, 실제 결과, 기대 동작을 함께 제공해주세요. 공개 가능하거나 익명화된 자료를 사용하세요. 스크립트 수정 시 실제 실행 결과를 첨부하고, 작성 규칙을 바꿀 때는 비즈니스 의미를 보존해주세요.
 
@@ -83,4 +91,4 @@ Issue와 Pull Request를 환영합니다. 최소 입력, 실제 결과, 기대 �
 
 ## 라이선스
 
-[Kevin-SHANG](https://github.com/Kevin-SHANG)이 [MIT License](LICENSE)로 공개합니다.
+[Kevin-SHANG](https://github.com/Kevin-SHANG)이 공개한 프로젝트이며, 명시된 라이선스는 MIT입니다. 현재 저장소에는 별도의 `LICENSE` 파일이 제공되지 않았습니다.

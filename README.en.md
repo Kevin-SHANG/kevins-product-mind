@@ -15,9 +15,16 @@ When information is incomplete, it offers a recommendation and identifies key ga
 
 The Skill and references are currently written in Chinese. You can request another output language. The English and Korean READMEs translate the project guide and request template; behavior across languages still needs testing in your client.
 
+## What's new in V2.0
+
+- **Diagram guidelines:** Cover flowcharts, mind maps, information architecture, product architecture, user journeys, and state diagrams.
+- **Clearer diagrams:** Improve layouts, connectors, and complex diagram splitting while preserving business rules, branches, and exception paths.
+- **Diagram checks:** Verify consistency with the document, complete paths, and rendered output. Disclose any visual checks that could not be completed.
+- **A focused upgrade:** Preserve V1 capabilities and load the new guidelines only for diagram tasks.
+
 ## Installation
 
-Download [kevins-product-mind.zip](https://github.com/Kevin-SHANG/kevins-product-mind/blob/main/kevins-product-mind.zip) from this repository and extract it. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
+Download the [V2.0.0 installation package](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v2.0.0/kevins-product-mind-v2.zip) and extract it. See the [release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v2.0.0) for details. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
 
 For a setup that uses `~/.codex/skills`, the entry point should be `~/.codex/skills/kevins-product-mind/SKILL.md`. Use your client's path if different. Preserve local changes before updating. Reload skills or start a new session as required.
 
@@ -45,12 +52,13 @@ Add your preferred output language if needed. `$skill-name` invocation depends o
 | File | Purpose |
 | --- | --- |
 | `SKILL.md` | Entry point, constraints, and reference routing |
-| `decisions-and-planning.md` | Product decisions, planning, and validation |
-| `prd-structure.md` | PRD structure, flows, fields, and business rules |
-| `prd-style.md` | Naming, writing, and delivery checks |
-| `prd-cases.md` | Before-and-after examples and their limits |
+| `references/decisions-and-planning.md` | Product decisions, planning, and validation |
+| `references/prd-structure.md` | PRD structure, flows, fields, and business rules |
+| `references/prd-style.md` | Naming, writing, and delivery checks |
+| `references/prd-cases.md` | Before-and-after examples and their limits |
+| `references/diagram-layout.md` | Diagram layout, connectors, splitting, and checks |
 | `scripts/` | Priority scores and experiment sample sizes |
-| `evals/evals.json` | 12 behavioral evaluation scenarios and expectations |
+| `evals/evals.json` | 18 behavioral evaluation scenarios and expectations |
 
 “SYX” is retained as a source label in the original writing guidance. Business parameters in the examples belong to their original context, not default rules for new projects.
 
@@ -73,7 +81,7 @@ The experiment example returns 3,841 per group, 7,682 total. The normal approxim
 
 ## Evaluation and contributions
 
-`evals/evals.json` defines 12 evaluation scenarios, including vague requests, AI fields, selection rules, wording changes, scope updates, and progression to a full PRD. They must be run and recorded in an actual Agent environment. Their presence does not mean they have passed.
+`evals/evals.json` defines 18 evaluation scenarios. It retains the original 12 and adds 6 diagram scenarios covering semantic fidelity, complex diagram splitting, information architecture, state loops, rendering limitations, and unknown action order. They must be run and recorded in an actual Agent environment. Their presence does not mean they have passed.
 
 Issues and pull requests are welcome. Include a minimal input, the actual result, and the expected behavior. Use public or anonymized materials. For script changes, include actual execution results; for writing rules, preserve business meaning.
 
@@ -83,4 +91,4 @@ Issues and pull requests are welcome. Include a minimal input, the actual result
 
 ## License
 
-Published by [Kevin-SHANG](https://github.com/Kevin-SHANG) under the [MIT License](LICENSE).
+Published by [Kevin-SHANG](https://github.com/Kevin-SHANG). The declared license is MIT; a standalone `LICENSE` file has not yet been provided in the repository.
