@@ -15,16 +15,17 @@ When information is incomplete, it offers a recommendation and identifies key ga
 
 The Skill and references are currently written in Chinese. You can request another output language. The English and Korean READMEs translate the project guide and request template; behavior across languages still needs testing in your client.
 
-## What's new in V2.0
+## What's new in V3.0
 
-- **Diagram guidelines:** Cover flowcharts, mind maps, information architecture, product architecture, user journeys, and state diagrams.
-- **Clearer diagrams:** Improve layouts, connectors, and complex diagram splitting while preserving business rules, branches, and exception paths.
-- **Diagram checks:** Verify consistency with the document, complete paths, and rendered output. Disclose any visual checks that could not be completed.
-- **A focused upgrade:** Preserve V1 capabilities and load the new guidelines only for diagram tasks.
+- **Cleaner naming and documents:** Body text and diagrams use business names only, with no invented codes such as S1 or S4-A; revision history, draft comparisons, and self-check results go in the delivery note, not the document.
+- **Scoped historical IDs:** Mappings are kept only for IDs still in use; IDs from superseded drafts are dropped, and unconfirmed English enum names are not written.
+- **Stronger delivery checks:** Partial edits trigger a full-document scan; issues in unchanged sections are listed for confirmation before any change.
+- **Diagram rules:** Runtime back-and-forth moves to sequence diagrams; low-frequency loopbacks become connector nodes without cutting core loops; entry and exit notes go below the diagram; only Mermaid syntax supported by both DingTalk Docs and Typora is used.
+- **Complete PRD definition:** Judged by content, not by title. See the [V3.0.0 release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v3.0.0).
 
 ## Installation
 
-Download the [V2.0.0 installation package](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v2.0.0/kevins-product-mind-v2.zip) and extract it. See the [release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v2.0.0) for details. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
+Download the [V3.0.0 installation package](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v3.0.0/kevins-product-mind-v3.zip) and extract it. See the [release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v3.0.0) for details. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
 
 For a setup that uses `~/.codex/skills`, the entry point should be `~/.codex/skills/kevins-product-mind/SKILL.md`. Use your client's path if different. Preserve local changes before updating. Reload skills or start a new session as required.
 
@@ -57,8 +58,8 @@ Add your preferred output language if needed. `$skill-name` invocation depends o
 | `references/prd-style.md` | Naming, writing, and delivery checks |
 | `references/prd-cases.md` | Before-and-after examples and their limits |
 | `references/diagram-layout.md` | Diagram layout, connectors, splitting, and checks |
-| `scripts/` | Priority scores and experiment sample sizes |
-| `evals/evals.json` | 18 behavioral evaluation scenarios and expectations |
+| `scripts/` | Priority scores, experiment sample sizes, and a PRD trace scanner |
+| `evals/evals.json` | 21 behavioral evaluation scenarios and expectations, with fixtures |
 
 “SYX” is retained as a source label in the original writing guidance. Business parameters in the examples belong to their original context, not default rules for new projects.
 
@@ -79,9 +80,15 @@ Scoring supports RICE, ICE, and weighted scores. Use a 0–1 decimal for `confid
 
 The experiment example returns 3,841 per group, 7,682 total. The normal approximation excludes adjustments for clustering, sequential testing, multiple comparisons, and attrition. Collection time alone is not the full experiment duration.
 
+```bash
+python3 scripts/scan_prd_traces.py PRD.md --allow-codes F-A,Q1 --allow-terms report_id
+```
+
+The scanner reports process traces, invented codes, and English identifiers in a PRD without deciding pass or fail; codes defined in the document's glossary and confirmed fields are excluded with the allow options. It exits with code 1 when it finds matches.
+
 ## Evaluation and contributions
 
-`evals/evals.json` defines 18 evaluation scenarios. It retains the original 12 and adds 6 diagram scenarios covering semantic fidelity, complex diagram splitting, information architecture, state loops, rendering limitations, and unknown action order. They must be run and recorded in an actual Agent environment. Their presence does not mean they have passed.
+`evals/evals.json` defines 21 evaluation scenarios. V3.0 adds 3: cleaning legacy draft IDs across multiple turns, retaining valid cross-document codes, and splitting a flowchart from a sequence diagram. The complex diagram splitting scenario now also checks naming. They must be run and recorded in an actual Agent environment. Their presence does not mean they have passed.
 
 Issues and pull requests are welcome. Include a minimal input, the actual result, and the expected behavior. Use public or anonymized materials. For script changes, include actual execution results; for writing rules, preserve business meaning.
 

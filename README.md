@@ -21,16 +21,17 @@
 
 当前 Skill 和参考资料以中文编写，可在需求中指定输出语言。英文与韩文 README 是仓库说明和调用模板的翻译，跨语言使用效果需在实际客户端中验证。
 
-## V2.0 新增内容
+## V3.0 新增内容
 
-- **绘图规范**：覆盖流程图、思维导图、信息架构图、产品架构图、用户旅程图与状态图。
-- **更清晰的表达**：统一布局、连线与复杂图拆分，保留业务规则、分支和异常路径。
-- **图形验收**：检查图文一致性、路径完整性与实际呈现；无法预览时明确说明未验证项。
-- **轻量升级**：保留 V1 核心能力，新增规范仅在涉及图形时加载。
+- **命名与正文更干净**：正文与流程图使用业务名称，不新造 S1、S4-A 一类代号；修订经过、旧稿对照与自检结果写入交付说明，不进入文档。
+- **历史编号限定**：只对仍在使用的历史编号保留对照，已被替代的旧稿编号不带入正文；未确认的英文枚举名不写。
+- **交付检查增强**：局部修改时对全文运行扫描，未改动段落里的问题列入交付说明、确认后再改。
+- **流程图规则**：模块间的运行时往来拆到时序图，低频回流用写明返回位置的连接符节点，核心循环不切断；入口与出口说明写在图下正文；仅使用钉钉文档与 Typora 都支持的 Mermaid 语法。
+- **完整 PRD 的判断**：按内容而非标题。详见 [V3.0.0 版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v3.0.0)。
 
 ## 安装与使用
 
-下载 [V2.0.0 安装包](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v2.0.0/kevins-product-mind-v2.zip)（[版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v2.0.0)），解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
+下载 [V3.0.0 安装包](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v3.0.0/kevins-product-mind-v3.zip)（[版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v3.0.0)），解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
 
 例如，使用 `~/.codex/skills` 作为技能目录时，最终入口应为 `~/.codex/skills/kevins-product-mind/SKILL.md`。使用其他技能目录时替换路径。目标目录已存在时先保留自己的修改，再更新；按客户端要求重新加载技能或开启新会话。
 
@@ -65,10 +66,11 @@ kevins-product-mind/
 │   └── diagram-layout.md
 ├── scripts/
 │   ├── score_priorities.py
-│   └── experiment_math.py
+│   ├── experiment_math.py
+│   └── scan_prd_traces.py
 └── evals/
     ├── evals.json
-    └── fixtures/E10-original-prd.md
+    └── fixtures/（E10、E19、E20、E21 的测试素材）
 ```
 
 参考资料按任务加载，无需每次读取全部文件。原始资料中的“SYX”是写作方法的来源标记，相关案例中的业务参数只适用于其原始情境，不是新项目的默认规则。
@@ -84,9 +86,15 @@ python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
 
 `mde=0.02` 表示提升 2 个百分点。该例输出每组 3841、总计 7682。计算不包含聚类、序贯检验、多重比较或损耗修正；按流量估算的收集天数不能代替完整实验周期。
 
+```bash
+python3 scripts/scan_prd_traces.py PRD.md --allow-codes F-A,Q1 --allow-terms report_id
+```
+
+该脚本扫描 PRD 中的过程痕迹、自造编号与英文标识，只报告命中位置，不判定通过；文档术语表已定义的编号和已确认的字段用放行参数排除。命中时退出码为 1。
+
 ## 评估与贡献
 
-`evals/evals.json` 提供 18 个评估场景：保留原有 12 个场景，新增 6 个绘图场景，覆盖图形语义保留、复杂图拆分、信息架构、状态回流、渲染限制和未知动作顺序。它是评估场景与期望的定义文件，需要在实际 Agent 环境中执行并记录结果；文件存在不表示这些场景已经通过。
+`evals/evals.json` 提供 21 个评估场景。V3.0 新增 3 个：旧稿编号在多轮写作中的清理、合法跨文档编号的保留、流程图与时序图的拆分；并更新了复杂图拆分场景的命名要求。它是评估场景与期望的定义文件，需要在实际 Agent 环境中执行并记录结果；文件存在不表示这些场景已经通过。
 
 改进规则时，欢迎提交 Issue 或 Pull Request，并附上最小输入、观察到的行为和期望结果。请使用可公开或匿名化的材料，避免加入真实客户数据、账号凭据或内部文档。修改脚本时请同时说明实际运行结果；修改写作规则时请检查原有业务含义是否保留。
 
