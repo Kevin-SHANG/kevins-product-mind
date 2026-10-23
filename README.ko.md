@@ -38,7 +38,7 @@ V5는 재구성 버전으로, V3이 '프로토타입 단계'와 '완전한 PRD �
 
 ## 설치
 
-[V5.0.0 설치 패키지](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v5.0.0/kevins-product-mind-v5.zip)를 내려받아 압축을 풀고, `SKILL.md`가 들어 있는 폴더 전체를 클라이언트에 설정된 스킬 디렉터리에 넣으세요. 폴더 이름은 `kevins-product-mind`로 유지합니다.
+최신 V5.0.0 패키지를 다운로드하여 압축을 풀고, `SKILL.md`가 포함된 폴더 전체를 클라이언트에 설정된 스킬 디렉터리에 넣되 폴더 이름은 `kevins-product-mind`로 유지하세요.
 
 예를 들어 `~/.codex/skills`를 스킬 디렉터리로 쓰는 경우 최종 진입점은 `~/.codex/skills/kevins-product-mind/SKILL.md`입니다. 다른 디렉터리를 쓴다면 경로를 바꾸세요. 대상 폴더가 이미 있으면 직접 수정한 내용을 먼저 보관한 뒤 업데이트하고, 클라이언트 안내에 따라 스킬을 다시 불러오거나 새 세션을 시작하세요.
 

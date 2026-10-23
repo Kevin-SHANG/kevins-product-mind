@@ -38,7 +38,7 @@ See the [V5.0.0 release notes](https://github.com/Kevin-SHANG/kevins-product-min
 
 ## Installation
 
-Download the [V5.0.0 installation package](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v5.0.0/kevins-product-mind-v5.zip) and extract it. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
+Download the V5.0.0 package and extract it. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
 
 For a setup that uses `~/.codex/skills`, the entry point should be `~/.codex/skills/kevins-product-mind/SKILL.md`. Use your client's path if different. Preserve local changes before updating. Reload skills or start a new session as required.
 

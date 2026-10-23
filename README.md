@@ -38,7 +38,7 @@ V5 是一次重构，主要解决 V3 在“原型阶段”和“完整 PRD 阶�
 
 ## 安装与使用
 
-下载 (https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v5.0.0/kevins-product-mind-v5.zip)（[版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.0)），解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
+下载最新V5.0.0安装包，解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
 
 例如，使用 `~/.codex/skills` 作为技能目录时，最终入口应为 `~/.codex/skills/kevins-product-mind/SKILL.md`。使用其他技能目录时替换路径。目标目录已存在时先保留自己的修改，再更新；按客户端要求重新加载技能或开启新会话。
 
