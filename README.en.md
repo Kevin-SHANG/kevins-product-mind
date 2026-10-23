@@ -2,49 +2,66 @@
 
 [中文](README.md) · **English** · [한국어](README.ko.md)
 
-A product management Agent Skill inspired by practices at leading Chinese internet companies. It turns vague requests into clear product decisions and PRDs ready for review and development, for products across markets and languages.
+**A product-manager Agent Skill built on the product practices of China's major internet companies. It turns vague requests into well-grounded product decisions and writes PRDs that are reviewable, buildable, and consistent with the prototype. It works across markets and languages.**
+
+Requirement clarification, trade-offs, prototype reconciliation, scope control, and PRD writing run in one workflow. When information is missing, it proposes a direction and names the key gaps. When the request is settled, it writes directly. When work spans several stages or sessions, it follows a file-backed path — feature breakdown, rule baseline, prototype reconciliation, one module at a time — instead of relying on the model's memory.
 
 ## What it does
 
-- Clarifies needs, compares approaches, and defines the MVP and current scope.
-- Writes, updates, and reviews PRDs, including flows, business rules, failure handling, and acceptance criteria.
-- Supports prioritization, roadmaps, metrics, and experiments.
-- Preserves agreed decisions, separates facts from assumptions, and keeps scope changes consistent.
+| Scenario | Main output |
+| --- | --- |
+| Idea, feedback, or request still unclear | Brief, recommendation, key trade-offs, open questions |
+| Core solution and scope agreed | PRD, feature rules, main flow, failure handling, acceptance |
+| Prototype already exists | Page mapping, state matrix, row-by-row rule/prototype comparison, prototype issue list, and a PRD that matches the prototype |
+| A prototype is needed first | Prototype blueprint (pages, state matrix, interaction surfaces, copy, forbidden content), confirmed before screens are drawn |
+| Large work across stages or sessions | Feature breakdown, decision baseline, stage-close audit, handoff template; the PRD is delivered one module per round |
+| Revising or reviewing a proposal | In-scope revisions, logic issues, concrete suggestions |
+| Planning and validation | MVP, priorities, roadmap, metric definitions, experiments |
 
-When information is incomplete, it offers a recommendation and identifies key gaps. When requirements are clear, it proceeds. Existing templates and the requested scope take priority. Transcription, translation, format conversion, and implementation of an already agreed design are outside its main purpose.
+The writing focuses on condition-and-result rules, a single home for each rule, a complete chain from inputs to page fields, and the boundary between product rules and implementation. PRDs are written for people first: a reader can follow one user task from start to finish, while cross-module policies such as deletion scope are consolidated into one table. Facts, assumptions, unknowns, and true zeros are kept apart; sample data and unverified effects are never written as commitments.
 
-The Skill and references are currently written in Chinese. You can request another output language. The English and Korean READMEs translate the project guide and request template; behavior across languages still needs testing in your client.
+Pure transcription, translation, format conversion, and coding of an already-decided solution are not its main purpose. Your templates, writing samples, and task scope remain important inputs.
 
-## What's new in V3.0
+The Skill and references are written in Chinese; you can request another output language. The English and Korean READMEs translate the repository description and request template; cross-language results should be verified in your own client.
 
-- **Cleaner naming and documents:** Body text and diagrams use business names only, with no invented codes such as S1 or S4-A; revision history, draft comparisons, and self-check results go in the delivery note, not the document.
-- **Scoped historical IDs:** Mappings are kept only for IDs still in use; IDs from superseded drafts are dropped, and unconfirmed English enum names are not written.
-- **Stronger delivery checks:** Partial edits trigger a full-document scan; issues in unchanged sections are listed for confirmation before any change.
-- **Diagram rules:** Runtime back-and-forth moves to sequence diagrams; low-frequency loopbacks become connector nodes without cutting core loops; entry and exit notes go below the diagram; only Mermaid syntax supported by both DingTalk Docs and Typora is used.
-- **Complete PRD definition:** Judged by content, not by title. See the [V3.0.0 release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v3.0.0).
+## What's new in V5.0
+
+V5 is a rework aimed at the problems V3 showed in the prototype stage and the full-PRD stage: prototypes and PRDs that did not match, decisions lost between stages, and checks that counted items instead of testing readability.
+
+- **Prototype reconciliation**: New `references/prototype.md`. With a prototype as input, the Skill builds a page mapping, a state matrix, and two row-by-row comparison tables before writing. Visible interactions are referenced to specific pages; invisible rules stay in the body. Temporary notes, sample data, and choice buttons with no observable difference are reported as prototype issues, not written as product rules.
+- **Long-running work**: New `references/long-project.md`. Staged work starts with a feature breakdown; confirmed decisions are written to a decision baseline in the same turn and re-read before each step. Stage-close audits, file-based handoffs, and per-feature-line subagents are supported.
+- **No silent overrides**: When a request conflicts with a recorded decision, an explicit change is applied and logged; only unclear intent triggers a question. No repeated confirmations.
+- **Readability vs. consolidation**: How a rule is written depends on its shape. Single-task rules stay local, one-line shared rules are restated where used, and policies compared across objects and cases become one table.
+- **Honest checks**: Counts, mappings, and passing syntax do not prove that a flow works or a document reads well. A two-way check for linear readability, consolidation, and consistency is added.
+
+See the [V5.0.0 release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.0).
 
 ## Installation
 
-Download the [V3.0.0 installation package](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v3.0.0/kevins-product-mind-v3.zip) and extract it. See the [release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v3.0.0) for details. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
+Download the [V5.0.0 installation package](https://github.com/Kevin-SHANG/kevins-product-mind/releases/download/v5.0.0/kevins-product-mind-v5.zip) and extract it. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
 
 For a setup that uses `~/.codex/skills`, the entry point should be `~/.codex/skills/kevins-product-mind/SKILL.md`. Use your client's path if different. Preserve local changes before updating. Reload skills or start a new session as required.
 
-The Skill, references, request template, and scripts described below are included in the ZIP.
+The Skill, references, request templates, and scripts described below are included in the ZIP.
 
 ## Request template
 
-This is a translation of the complete template in `需求提示词.md`. Fill in what you know; leave unknown details blank.
+This is a translation of the new-request template in `需求提示词.md`. Fill in what you know; leave unknown details blank.
 
 ```text
 Use $kevins-product-mind to help me with the following product request.
 
 Need: [What problem should be solved, and for whom?]
 Context and materials: [Current situation, feedback, data, documents, or links]
+Existing prototype: [Where it is; leave blank if none. Which wins when UI and rules conflict]
 Agreed decisions and constraints: [Rules to preserve and items outside this release]
+Working mode: [Write in one go / proceed in stages]
 Deliverable: [Recommendation / MVP / PRD / proposal review / other]
 
 Read the materials first, then give your judgment. If there is enough information, complete the task. Ask about gaps that affect direction or correctness together; use your judgment for other low-risk, reversible details. Do not reconfirm agreed decisions. Separate assumptions from facts and stay within the requested scope.
 ```
+
+The same file also contains a stage-handoff template for compressing context or starting a new session: current stage, baseline files, first task, and what not to do.
 
 Add your preferred output language if needed. `$skill-name` invocation depends on the client. If automatic loading is unavailable, provide `SKILL.md` and the references needed for the task explicitly.
 
@@ -58,44 +75,38 @@ Add your preferred output language if needed. `$skill-name` invocation depends o
 | `references/prd-style.md` | Naming, writing, and delivery checks |
 | `references/prd-cases.md` | Before-and-after examples and their limits |
 | `references/diagram-layout.md` | Diagram layout, connectors, splitting, and checks |
+| `references/prototype.md` | New in V5: prototype reconciliation and prototype output |
+| `references/long-project.md` | New in V5: staged and cross-session work |
 | `scripts/` | Priority scores, experiment sample sizes, and a PRD trace scanner |
-| `evals/evals.json` | 21 behavioral evaluation scenarios and expectations, with fixtures |
+| `evals/evals.json` | 34 behavioral evaluation scenarios with 11 fixtures |
 
 “SYX” is retained as a source label in the original writing guidance. Business parameters in the examples belong to their original context, not default rules for new projects.
 
 ## Helper scripts
 
-Python 3.10+ is required only for the scripts, which use the standard library. Use `--help` to view arguments.
+Python 3.10+ is required only for the scripts, which use the standard library. Use `--help` to view input formats.
 
 ```bash
-# UTF-8 CSV headers: item,reach,impact,confidence,effort
 python3 scripts/score_priorities.py priorities.csv --method rice
-
-# Two independent proportions: 10% baseline, +2 percentage points
 python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
   --alpha 0.05 --power 0.8 --allocation 0.5 --sides two --direction increase
-```
-
-Scoring supports RICE, ICE, and weighted scores. Use a 0–1 decimal for `confidence`; missing inputs are not filled in. For example, RICE inputs A=(1000,2,0.8,4), B=(2000,1,0.5,5), and C=(500,3,1,2), in header order, yield C=750, A=400, B=200. Results go to standard output or a file specified with `--output`.
-
-The experiment example returns 3,841 per group, 7,682 total. The normal approximation excludes adjustments for clustering, sequential testing, multiple comparisons, and attrition. Collection time alone is not the full experiment duration.
-
-```bash
 python3 scripts/scan_prd_traces.py PRD.md --allow-codes F-A,Q1 --allow-terms report_id
 ```
 
-The scanner reports process traces, invented codes, and English identifiers in a PRD without deciding pass or fail; codes defined in the document's glossary and confirmed fields are excluded with the allow options. It exits with code 1 when it finds matches.
+The experiment example returns 3,841 per group, 7,682 total, under a normal approximation without clustering, sequential-testing, multiple-comparison, or attrition adjustments. The scanner reports process traces, invented codes, English identifiers, and bare references such as “see prototype” that name no page; `--unfinished` also reports placeholder and TODO markers. It reports matches only and exits with code 1 when it finds any.
 
 ## Evaluation and contributions
 
-`evals/evals.json` defines 21 evaluation scenarios. V3.0 adds 3: cleaning legacy draft IDs across multiple turns, retaining valid cross-document codes, and splitting a flowchart from a sequence diagram. The complex diagram splitting scenario now also checks naming. They must be run and recorded in an actual Agent environment. Their presence does not mean they have passed.
+`evals/evals.json` defines 34 scenarios; V5.0 adds 13, covering PRDs written from prototypes, prototype/rule conflicts, prototype updates, persisting and recalling asset names, explicit vs. unclear changes, structural changes, new-session handoffs, module-by-module writing, blueprint-first and breakdown-first prototyping, and the balance between local rules and consolidated tables.
+
+These scenarios were actually run for this release: 34 trial runs with Kimi K3 and DeepSeek as the tested models. The 13 new scenarios passed 8/13 on the first round and 13/13 after the rules were fixed, plus an old-vs-new comparison on a real hardware project. Details are in the release notes. Scenario files alone do not guarantee results in your client; reruns in your own environment are welcome.
 
 Issues and pull requests are welcome. Include a minimal input, the actual result, and the expected behavior. Use public or anonymized materials. For script changes, include actual execution results; for writing rules, preserve business meaning.
 
 ## Acknowledgments
 
-**Special thanks to wami, author of `wami-prd-style`.** Its approach to PRD writing and structure was an important reference in assembling this Skill.
+**Special thanks to wami, author of `wami-prd-style`.** Its approach to PRD writing and structure was an important reference for this Skill.
 
 ## License
 
-Published by [Kevin-SHANG](https://github.com/Kevin-SHANG). The declared license is MIT; a standalone `LICENSE` file has not yet been provided in the repository.
+Published by [Kevin-SHANG](https://github.com/Kevin-SHANG) under the MIT license. The repository does not yet include a separate `LICENSE` file.
