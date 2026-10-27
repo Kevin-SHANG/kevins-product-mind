@@ -24,9 +24,17 @@
 
 当前 Skill 和参考资料以中文编写，可在需求中指定输出语言。英文与韩文 README 是仓库说明和调用模板的翻译，跨语言使用效果需在实际客户端中验证。
 
-## V5.0 新增内容
+## V5 更新
 
 V5 是一次重构，主要解决 V3 在“原型阶段”和“完整 PRD 阶段”暴露的问题：原型和 PRD 对不上、跨阶段确认过的决定丢失、验收只看数量不看能不能读懂。
+
+**V5.0.1**
+
+- **逻辑写法**：参考真实 PRD，条件、流程、状态一律按上下级写成缩进列表，不再挤成一段；示例文档同步补全。几个模块共用的规则如果一句话就能说清，就直接写在用到它的地方。
+- **流程**：只有照着原型写整份 PRD 才分步做，小改动直接做完；要求一次写完也可以，但每个模块都要先单独检查一遍。
+- **检查**：照着原型写 PRD 时，还要列出原型里用到的素材，再把主要操作从头到尾走一遍。
+
+**V5.0.0**
 
 - **原型对照**：新增 `references/prototype.md`。有原型作为输入时，先做页面映射、状态矩阵和两张逐行对照表，再写 PRD；原型里看得清的交互引用到具体页面，看不出来的规则写在正文；原型里的临时说明、示例数据、选了没区别的按钮列为原型问题，不写成产品规则。
 - **长程推进**：新增 `references/long-project.md`。分阶段需求先做功能拆解，确认过的决定当轮写进决策基线，开工先回读文件；支持阶段收口审计、文件化交接和按功能线分给子代理。
@@ -34,15 +42,17 @@ V5 是一次重构，主要解决 V3 在“原型阶段”和“完整 PRD 阶�
 - **可读与收口的平衡**：按规则形态决定写法。只属于一个任务的就地写完，一句话共用规则在各处原样复述，跨对象、跨情况对照的政策收口成表。
 - **验收更诚实**：计数、映射、语法通过不能证明“走得通、读得懂”；新增线性可读、收口与口径一致的双向检查。
 
-详见 [V5.0.0 版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.0)。
+详见 [V5.0.1 版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.1) 和 [V5.0.0 版本说明](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.0)。
 
 ## 安装与使用
 
-下载最新V5.0.0安装包，解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
+下载最新V5.0.1安装包，解压后，将包含 `SKILL.md` 的完整文件夹放入客户端配置的技能目录，目录名保持为 `kevins-product-mind`。
 
 例如，使用 `~/.codex/skills` 作为技能目录时，最终入口应为 `~/.codex/skills/kevins-product-mind/SKILL.md`。使用其他技能目录时替换路径。目标目录已存在时先保留自己的修改，再更新；按客户端要求重新加载技能或开启新会话。
 
 下文提到的 Skill、参考资料、提示词和脚本都包含在安装包内。
+
+## 需求模板
 
 `需求提示词.md` 中的新需求模板如下。复制并填写已知信息，不清楚的可留空；在支持 `$skill-name` 调用的客户端中使用：
 
@@ -65,26 +75,19 @@ V5 是一次重构，主要解决 V3 在“原型阶段”和“完整 PRD 阶�
 
 ## 文件说明
 
-```text
-kevins-product-mind/
-├── SKILL.md
-├── 需求提示词.md
-├── references/
-│   ├── decisions-and-planning.md
-│   ├── prd-structure.md
-│   ├── prd-style.md
-│   ├── prd-cases.md
-│   ├── diagram-layout.md
-│   ├── prototype.md          # V5 新增：原型对照与原型产出
-│   └── long-project.md       # V5 新增：分阶段、跨会话推进
-├── scripts/
-│   ├── score_priorities.py
-│   ├── experiment_math.py
-│   └── scan_prd_traces.py
-└── evals/
-    ├── evals.json
-    └── fixtures/（11 份测试素材）
-```
+| 文件 | 用途 |
+| --- | --- |
+| `SKILL.md` | 入口、约束与参考资料路由 |
+| `需求提示词.md` | 新需求模板与阶段交接模板 |
+| `references/decisions-and-planning.md` | 产品判断、规划与验证 |
+| `references/prd-structure.md` | PRD 结构、流程、字段与业务规则 |
+| `references/prd-style.md` | 命名、行文与交付检查 |
+| `references/prd-cases.md` | 改写前后对照与适用范围 |
+| `references/diagram-layout.md` | 图形布局、连线、拆分与检查 |
+| `references/prototype.md` | V5 新增：原型对照与原型产出 |
+| `references/long-project.md` | V5 新增：分阶段、跨会话推进 |
+| `scripts/` | 优先级评分、实验样本量与 PRD 痕迹扫描 |
+| `evals/evals.json` | 34 个行为评估场景与 11 份测试素材 |
 
 参考资料按任务加载，无需每次读取全部文件。原始资料中的“SYX”是写作方法的来源标记，相关案例中的业务参数只适用于其原始情境，不是新项目的默认规则。
 
@@ -93,17 +96,13 @@ kevins-product-mind/
 脚本需要 Python 3.10 或更新版本，只使用 Python 标准库；只写 PRD 而不调用脚本时无需安装 Python。各脚本的输入格式见 `--help`。
 
 ```bash
+python3 scripts/score_priorities.py priorities.csv --method rice
 python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
   --alpha 0.05 --power 0.8 --allocation 0.5 --sides two --direction increase
-```
-
-`mde=0.02` 表示提升 2 个百分点。该例输出每组 3841、总计 7682。计算不包含聚类、序贯检验、多重比较或损耗修正；按流量估算的收集天数不能代替完整实验周期。
-
-```bash
 python3 scripts/scan_prd_traces.py PRD.md --allow-codes F-A,Q1 --allow-terms report_id
 ```
 
-该脚本扫描 PRD 中的过程痕迹、自造编号、英文标识，以及“参考原型图”这类不指向具体页面的裸引用，只报告命中位置，不判定通过；加 `--unfinished` 还会报告“占位、待补、TODO”一类标记。文档术语表已定义的编号和已确认的字段用放行参数排除。命中时退出码为 1。
+`mde=0.02` 表示提升 2 个百分点。该例按正态近似输出每组 3841、总计 7682。计算不包含聚类、序贯检验、多重比较或损耗修正；按流量估算的收集天数不能代替完整实验周期。该脚本扫描 PRD 中的过程痕迹、自造编号、英文标识，以及“参考原型图”这类不指向具体页面的裸引用，只报告命中位置，不判定通过；加 `--unfinished` 还会报告“占位、待补、TODO”一类标记。文档术语表已定义的编号和已确认的字段用放行参数排除。命中时退出码为 1。
 
 ## 评估与贡献
 
@@ -119,4 +118,4 @@ python3 scripts/scan_prd_traces.py PRD.md --allow-codes F-A,Q1 --allow-terms rep
 
 ## 许可证
 
-本项目由 [Kevin-SHANG](https://github.com/Kevin-SHANG) 发布，许可证声明为 MIT。仓库尚未提供独立的 `LICENSE` 文件。
+本项目由 [Kevin-SHANG](https://github.com/Kevin-SHANG) 发布，采用 MIT 许可证，全文见仓库根目录的 `LICENSE` 文件。

@@ -24,21 +24,29 @@ Pure transcription, translation, format conversion, and coding of an already-dec
 
 The Skill and references are written in Chinese; you can request another output language. The English and Korean READMEs translate the repository description and request template; cross-language results should be verified in your own client.
 
-## What's new in V5.0
+## What's new in V5
 
 V5 is a rework aimed at the problems V3 showed in the prototype stage and the full-PRD stage: prototypes and PRDs that did not match, decisions lost between stages, and checks that counted items instead of testing readability.
 
-- **Prototype reconciliation**: New `references/prototype.md`. With a prototype as input, the Skill builds a page mapping, a state matrix, and two row-by-row comparison tables before writing. Visible interactions are referenced to specific pages; invisible rules stay in the body. Temporary notes, sample data, and choice buttons with no observable difference are reported as prototype issues, not written as product rules.
+**V5.0.1**
+
+- **Writing logic**: drawing on real PRDs, conditions, flows and states are written as nested, indented lists instead of being packed into paragraphs. Example documents are filled in to match. A shared rule that fits in one sentence is written again where it is used.
+- **Workflow**: step-by-step only when writing a full PRD from a prototype; small edits are done in one pass. Writing the whole PRD at once is supported, but each module is checked on its own first.
+- **Checks**: when writing a PRD from a prototype, list the assets used in the prototype and walk the main flow end to end.
+
+**V5.0.0**
+
+- **Prototype reconciliation**: New `references/prototype.md`. With a prototype as input, the Skill builds a page mapping, a state matrix, and two row-by-row comparison tables before writing. Visible interactions are linked to specific pages; invisible rules stay in the body. Temporary notes, sample data, and choice buttons with no observable difference are reported as prototype issues, not written as product rules.
 - **Long-running work**: New `references/long-project.md`. Staged work starts with a feature breakdown; confirmed decisions are written to a decision baseline in the same turn and re-read before each step. Stage-close audits, file-based handoffs, and per-feature-line subagents are supported.
 - **No silent overrides**: When a request conflicts with a recorded decision, an explicit change is applied and logged; only unclear intent triggers a question. No repeated confirmations.
 - **Readability vs. consolidation**: How a rule is written depends on its shape. Single-task rules stay local, one-line shared rules are restated where used, and policies compared across objects and cases become one table.
 - **Honest checks**: Counts, mappings, and passing syntax do not prove that a flow works or a document reads well. A two-way check for linear readability, consolidation, and consistency is added.
 
-See the [V5.0.0 release notes](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.0).
+See the [V5.0.1](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.1) and [V5.0.0](https://github.com/Kevin-SHANG/kevins-product-mind/releases/tag/v5.0.0) release notes.
 
 ## Installation
 
-Download the V5.0.0 package and extract it. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
+Download the V5.0.1 package and extract it. Place the complete folder containing `SKILL.md` in your client's configured skills directory, keeping the folder name `kevins-product-mind`.
 
 For a setup that uses `~/.codex/skills`, the entry point should be `~/.codex/skills/kevins-product-mind/SKILL.md`. Use your client's path if different. Preserve local changes before updating. Reload skills or start a new session as required.
 
@@ -63,13 +71,14 @@ Read the materials first, then give your judgment. If there is enough informatio
 
 The same file also contains a stage-handoff template for compressing context or starting a new session: current stage, baseline files, first task, and what not to do.
 
-Add your preferred output language if needed. `$skill-name` invocation depends on the client. If automatic loading is unavailable, provide `SKILL.md` and the references needed for the task explicitly.
+Add your preferred output language if needed. `$skill-name` invocation depends on the client. If automatic loading is unavailable, provide `SKILL.md` and the references needed for the task explicitly; loading and execution results in that mode depend on the client.
 
 ## Contents
 
 | File | Purpose |
 | --- | --- |
 | `SKILL.md` | Entry point, constraints, and reference routing |
+| `需求提示词.md` | Request template and stage-handoff template |
 | `references/decisions-and-planning.md` | Product decisions, planning, and validation |
 | `references/prd-structure.md` | PRD structure, flows, fields, and business rules |
 | `references/prd-style.md` | Naming, writing, and delivery checks |
@@ -93,7 +102,7 @@ python3 scripts/experiment_math.py --baseline 0.10 --mde 0.02 \
 python3 scripts/scan_prd_traces.py PRD.md --allow-codes F-A,Q1 --allow-terms report_id
 ```
 
-The experiment example returns 3,841 per group, 7,682 total, under a normal approximation without clustering, sequential-testing, multiple-comparison, or attrition adjustments. The scanner reports process traces, invented codes, English identifiers, and bare references such as “see prototype” that name no page; `--unfinished` also reports placeholder and TODO markers. It reports matches only and exits with code 1 when it finds any.
+The experiment example returns 3,841 per group, 7,682 total, under a normal approximation without clustering, sequential-testing, multiple-comparison, or attrition adjustments; days estimated from traffic volume cannot replace a full experiment cycle. The scanner reports process traces, invented codes, English identifiers, and bare references such as “see prototype” that name no page; `--unfinished` also reports placeholder and TODO markers. Codes defined in the document glossary and confirmed field names are excluded with allow-list options. It reports matches only and exits with code 1 when it finds any.
 
 ## Evaluation and contributions
 
@@ -109,4 +118,4 @@ Issues and pull requests are welcome. Include a minimal input, the actual result
 
 ## License
 
-Published by [Kevin-SHANG](https://github.com/Kevin-SHANG) under the MIT license. The repository does not yet include a separate `LICENSE` file.
+Published by [Kevin-SHANG](https://github.com/Kevin-SHANG) under the MIT license. See the `LICENSE` file at the repository root for the full text.
